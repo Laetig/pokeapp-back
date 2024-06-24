@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PokemonFetchService } from './poke-api.service';
+import { PokeApiService } from './poke-api.service';
 
 describe('GetPokemonFromApiService', () => {
-  let service: PokemonFetchService;
+  let service: PokeApiService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [PokemonFetchService]
+      providers: [PokeApiService]
     }).compile();
 
-    service = module.get<PokemonFetchService>(PokemonFetchService);
+    service = module.get<PokeApiService>(PokeApiService);
   });
 
   it('should be defined', () => {

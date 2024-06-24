@@ -1,13 +1,32 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PokemonModule } from './poke-api/poke-api.module';
-import { PokemonController } from './poke-api/poke-api.controller';
-import { PokemonFetchService } from './poke-api/poke-api.service';
+import { PokeApiModule } from './infra/poke-api/poke-api.module';
+import { FeaturesModule } from './features/features.module';
+import { utilities, WinstonModule } from 'nest-winston';
+import * as winston from 'winston';
 
 @Module({
-  imports: [AppModule, PokemonModule],
-  controllers: [AppController, PokemonController],
-  providers: [AppService, PokemonFetchService]
+  imports: [
+    PokeApiModule,
+    FeaturesModule,
+    WinstonModule.forRoot({
+      transports: [
+        new winston.transports.Console({
+          format: winston.format.combine(
+            winston.format.timestamp(),
+            winston.format.ms(),
+            utilities.format.nestLike('PokeApp', {
+              colors: true,
+              prettyPrint: true,
+              processId: true
+            })
+          )
+        })
+      ]
+    })
+  ],
+  controllers: [AppController],
+  providers: [AppService]
 })
 export class AppModule {}
