@@ -4,7 +4,6 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 
 async function bootstrap() {
-  //instance de l'appli stockée dans app
   const app = await NestFactory.create(AppModule);
 
   const swaggerOptions = new DocumentBuilder()
@@ -21,4 +20,5 @@ async function bootstrap() {
 
   await app.listen(3000);
 }
-bootstrap().catch(console.error); //si problème, ajout de : bootstrap().catch(console.error);
+bootstrap();
+//si problème, ajout de : bootstrap().catch(console.error);
